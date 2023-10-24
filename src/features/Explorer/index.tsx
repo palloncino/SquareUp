@@ -1,9 +1,14 @@
+import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, StyleSheet} from 'react-native';
 
-const Explorer = ({navigation}) => {
+type ExplorerPageProps = {
+  navigation: StackNavigationProp<any, 'Explorer'>;
+};
+
+const Explorer = ({navigation}: ExplorerPageProps) => {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={styles.container}>
       <Text>Explorer Page</Text>
       <Button
         title="Go to ChatUp"
@@ -12,5 +17,13 @@ const Explorer = ({navigation}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default Explorer;
