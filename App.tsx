@@ -1,111 +1,97 @@
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, FlatList, SectionList, Text, StyleSheet} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const App = () => {
+  const [data, setData] = useState<any>(null);
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://dummyjson.com/products');
+        const data = await response.json();
+        setData(data.products);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+    fetchData();
+  }, []);
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  if (!data) {
+    return <Text>Loading...</Text>;
+  }
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const smartphoneData = data.filter(item => item.category === 'smartphones');
+  const otherData = data.filter(item => item.category !== 'smartphones');
+
+  const sections = [
+    {title: 'Smartphones', data: smartphoneData},
+    {title: 'Others', data: otherData},
+  ];
+
+  const ItemComponent = ({title, description}) => {
+    return (
+      <View style={styles.itemContainer}>
+        <Text style={styles.itemTitle}>{title}</Text>
+        <Text style={styles.itemDescription}>{description}</Text>
+      </View>
+    );
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <View style={{flex: 1, padding: 10, backgroundColor: '#f0f0f0'}}>
+      <FlatList
+        data={smartphoneData}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({item}) => (
+          <ItemComponent title={item.title} description={item.description} />
+        )}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+      <SectionList
+        sections={sections}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({item}) => (
+          <ItemComponent title={item.title} description={item.description} />
+        )}
+        renderSectionHeader={({section: {title}}) => (
+          <Text style={styles.sectionHeader}>{title}</Text>
+        )}
+      />
+    </View>
+  );
+};
 
 export default App;
+
+const styles = StyleSheet.create({
+  itemContainer: {
+    backgroundColor: '#ffffff',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  itemTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  itemDescription: {
+    marginTop: 5,
+    color: '#555',
+  },
+  sectionHeader: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: 5,
+    marginTop: 10,
+  },
+});
