@@ -14,6 +14,10 @@ const Explorer = ({navigation}: ExplorerPageProps) => {
         title="Go to ChatUp"
         onPress={() => navigation.navigate('ChatUp')}
       />
+      <Button
+        title="Go to Cropper"
+        onPress={() => navigation.navigate('Cropper')}
+      />
     </View>
   );
 };
