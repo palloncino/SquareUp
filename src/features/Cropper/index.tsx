@@ -6,7 +6,7 @@ import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 
 const Cropper = () => {
   const [image, setImage] = useState<any>(null);
-  const viewShotRef = useRef(null);
+  const viewShotRef = useRef<ViewShot>(null);
 
   const pickImage = async () => {
     const _img = await ImagePicker.openPicker({
@@ -24,7 +24,7 @@ const Cropper = () => {
   };
 
   const downloadImage = async () => {
-    if (viewShotRef.current) {
+    if (viewShotRef.current && viewShotRef.current.capture) {
       try {
         const uri = await viewShotRef.current.capture();
         const savedPath = await CameraRoll.saveToCameraRoll(uri, 'photo');
