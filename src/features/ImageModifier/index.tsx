@@ -4,7 +4,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import ViewShot from 'react-native-view-shot';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 
-const Cropper = () => {
+const ImageModifier = () => {
   const [image, setImage] = useState<any>(null);
   const viewShotRef = useRef<ViewShot>(null);
 
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cropper;
+export default ImageModifier;

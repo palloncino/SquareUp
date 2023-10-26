@@ -11,8 +11,12 @@ const Explorer = ({navigation}: ExplorerPageProps) => {
     <View style={styles.container}>
       <Text>Explorer Page</Text>
       <Button
-        title="Go to Cropper"
-        onPress={() => navigation.navigate('Cropper')}
+        title="Go to ImageModifier"
+        onPress={() => navigation.navigate('ImageModifier')}
+      />
+      <Button
+        title="Go to VideoModifier"
+        onPress={() => navigation.navigate('VideoModifier')}
       />
     </View>
   );

@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "mobile": "npx react-native run-ios --device"
   },
   "dependencies": {
     "@react-native-camera-roll/camera-roll": "^6.0.0",
