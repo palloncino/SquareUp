@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "nativeapp04.app"
-               BlueprintName = "nativeapp04"
-               ReferencedContainer = "container:nativeapp04.xcodeproj">
+               BuildableName = "SquareUp.app"
+               BlueprintName = "SquareUp"
+               ReferencedContainer = "container:SquareUp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "nativeapp04Tests.xctest"
-               BlueprintName = "nativeapp04Tests"
-               ReferencedContainer = "container:nativeapp04.xcodeproj">
+               BuildableName = "SquareUpTests.xctest"
+               BlueprintName = "SquareUpTests"
+               ReferencedContainer = "container:SquareUp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "nativeapp04.app"
-            BlueprintName = "nativeapp04"
-            ReferencedContainer = "container:nativeapp04.xcodeproj">
+            BuildableName = "SquareUp.app"
+            BlueprintName = "SquareUp"
+            ReferencedContainer = "container:SquareUp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "nativeapp04.app"
-            BlueprintName = "nativeapp04"
-            ReferencedContainer = "container:nativeapp04.xcodeproj">
+            BuildableName = "SquareUp.app"
+            BlueprintName = "SquareUp"
+            ReferencedContainer = "container:SquareUp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
