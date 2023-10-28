@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
-import {Button, View} from 'react-native';
-import {ProcessingManager} from 'react-native-video-processing';
-import {launchImageLibrary} from 'react-native-image-picker';
+import React, { useEffect, useState } from 'react';
+import { Button, View } from 'react-native';
+import { ProcessingManager } from 'react-native-video-processing';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const VideoModifier = () => {
   const [video, setVideo] = useState<any>(null);
+  useEffect(() => {
+    console.log(video);
+  }, [video]);
 
   const pickVideo = () => {
     const options = {
@@ -18,6 +21,7 @@ const VideoModifier = () => {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
+        console.log(1, response);
         const videoFile = response.uri;
         setVideo(videoFile);
       }
@@ -35,7 +39,7 @@ const VideoModifier = () => {
   };
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Button title="Pick a Video" onPress={pickVideo} />
       {video && <Button title="Process Video" onPress={processVideo} />}
       {/* Optionally, display a video player component to preview the video */}
