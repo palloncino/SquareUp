@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Button, View } from 'react-native';
-import { ProcessingManager } from 'react-native-video-processing';
-import { launchImageLibrary } from 'react-native-image-picker';
+import React, {useState} from 'react';
+import {Button, View} from 'react-native';
+import {MediaType, launchImageLibrary} from 'react-native-image-picker';
+import {ProcessingManager} from 'react-native-video-processing';
 
 const VideoModifier = () => {
   const [video, setVideo] = useState<any>(null);
-  useEffect(() => {
-    console.log(video);
-  }, [video]);
 
   const pickVideo = () => {
     const options = {
-      mediaType: 'video',
-      noData: true, // To improve performance by not including a base64-encoded string of the image data in the response object.
+      mediaType: 'video' as MediaType,
+      noData: true,
     };
 
-    launchImageLibrary(options, response => {
-      if (response.didCancel) {
+    launchImageLibrary(options, ({didCancel, errorMessage, assets}) => {
+      if (didCancel) {
         console.log('User cancelled video picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else {
-        console.log(1, response);
-        const videoFile = response.uri;
+      } else if (errorMessage) {
+        console.log('ImagePicker Error: ', errorMessage);
+      } else if (assets) {
+        const videoFile = assets[0].uri;
         setVideo(videoFile);
+      } else {
+        console.log('error in launchImageLibrary');
       }
     });
   };
@@ -39,7 +37,7 @@ const VideoModifier = () => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Button title="Pick a Video" onPress={pickVideo} />
       {video && <Button title="Process Video" onPress={processVideo} />}
       {/* Optionally, display a video player component to preview the video */}
