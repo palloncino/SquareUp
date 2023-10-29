@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {Button, View} from 'react-native';
 import {MediaType, launchImageLibrary} from 'react-native-image-picker';
 import Video from 'react-native-video';
+import RNFS from 'react-native-fs';
+import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 
 const VideoModifier = () => {
   const [video, setVideo] = useState<any>(null);
@@ -49,9 +51,15 @@ const VideoModifier = () => {
         throw new Error('Network response was not ok ' + response.statusText);
       }
 
-      let blob = await response.blob();
-      let url = URL.createObjectURL(blob);
-      console.log(url); // example: blob:C1311375-A785-4DF3-A83A-DA4D2C624FB6?offset=0&size=41230
+      let base64 = await response.text();
+      let filePath = `${RNFS.DocumentDirectoryPath}/processed_video.mp4`;
+
+      await RNFS.writeFile(filePath, base64, 'base64');
+
+      setVideo(undefined);
+      setVideo(filePath);
+
+      await CameraRoll.saveToCameraRoll(filePath, 'video');
     } catch (error) {
       console.error('Error:', error);
     }
