@@ -53,13 +53,11 @@ const VideoModifier = () => {
 
       let base64 = await response.text();
       let filePath = `${RNFS.DocumentDirectoryPath}/processed_video.mp4`;
-
       await RNFS.writeFile(filePath, base64, 'base64');
-
       setVideo(undefined);
       setVideo(filePath);
-
       await CameraRoll.saveToCameraRoll(filePath, 'video');
+      await RNFS.unlink(filePath);
     } catch (error) {
       console.error('Error:', error);
     }
