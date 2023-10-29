@@ -9,6 +9,7 @@ const VideoModifier = () => {
   const [video, setVideo] = useState<any>(null);
 
   const pickVideo = () => {
+    setVideo(undefined);
     const options = {
       mediaType: 'video' as MediaType,
       noData: true,
