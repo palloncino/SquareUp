@@ -1,12 +1,16 @@
-import React, {useState} from 'react';
+import {CameraRoll} from '@react-native-camera-roll/camera-roll';
+import React, {useEffect, useState} from 'react';
 import {Button, View} from 'react-native';
+import RNFS from 'react-native-fs';
 import {MediaType, launchImageLibrary} from 'react-native-image-picker';
 import Video from 'react-native-video';
-import RNFS from 'react-native-fs';
-import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 
 const VideoModifier = () => {
   const [video, setVideo] = useState<any>(null);
+
+  useEffect(() => {
+    pickVideo();
+  }, []);
 
   const pickVideo = () => {
     setVideo(undefined);

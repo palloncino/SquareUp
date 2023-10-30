@@ -1,5 +1,5 @@
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Button, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import ViewShot from 'react-native-view-shot';
@@ -7,6 +7,10 @@ import ViewShot from 'react-native-view-shot';
 const ImageModifier = () => {
   const [image, setImage] = useState<any>(null);
   const viewShotRef = useRef<ViewShot>(null);
+
+  useEffect(() => {
+    pickImage();
+  }, []);
 
   const pickImage = async () => {
     setImage(undefined);
