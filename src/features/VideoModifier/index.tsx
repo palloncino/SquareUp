@@ -66,15 +66,18 @@ const VideoModifier = () => {
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Button title="Pick a Video" onPress={pickVideo} />
+      <Button
+        title={video ? 'Pick another Video' : 'Pick a Video'}
+        onPress={pickVideo}
+      />
       {video && (
         <>
-          <Button title="Process Video" onPress={uploadVideo} />
           <Video
             source={{uri: video}}
             style={{width: '100%', height: 300}}
             controls={true}
           />
+          <Button title="Process Video" onPress={uploadVideo} />
         </>
       )}
     </View>
