@@ -1,16 +1,21 @@
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, View} from 'react-native';
 import RNFS from 'react-native-fs';
 import {MediaType, launchImageLibrary} from 'react-native-image-picker';
+import SelectDropdown from 'react-native-select-dropdown';
 import Video from 'react-native-video';
+
+const colorLabels = ['Black', 'White'];
+
+const colors = {
+  Black: 'black',
+  White: 'white',
+};
 
 const VideoModifier = () => {
   const [video, setVideo] = useState<any>(null);
-
-  useEffect(() => {
-    pickVideo();
-  }, []);
+  const [colorLabel, setColorLabel] = useState<'Black' | 'White'>('Black');
 
   const pickVideo = () => {
     setVideo(undefined);
@@ -42,7 +47,7 @@ const VideoModifier = () => {
         type: 'video/mov',
         name: 'video.mov',
       });
-      formData.append('bgcolor', 'red');
+      formData.append('bgcolor', colors[colorLabel]);
 
       let response = await fetch('http://127.0.0.1:3000/api/video-upload', {
         method: 'POST',
@@ -73,6 +78,16 @@ const VideoModifier = () => {
       <Button
         title={video ? 'Pick another Video' : 'Pick a Video'}
         onPress={pickVideo}
+      />
+      <SelectDropdown
+        defaultValue={colorLabels[0]}
+        data={colorLabels}
+        onSelect={(selectedItem, index) => {
+          setColorLabel(selectedItem);
+        }}
+        buttonTextAfterSelection={(selectedItem, index) => {
+          return `Background: ${selectedItem}`;
+        }}
       />
       {video && (
         <>
